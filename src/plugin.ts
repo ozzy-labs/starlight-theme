@@ -8,7 +8,7 @@ export function ozzylabsDocsTheme(): StarlightPlugin {
   return {
     name: "@ozzy-labs/docs-theme",
     hooks: {
-      "config:setup"({ updateConfig }) {
+      "config:setup"({ config, updateConfig }) {
         updateConfig({
           defaultLocale: "root",
           locales: {
@@ -16,13 +16,14 @@ export function ozzylabsDocsTheme(): StarlightPlugin {
             ja: { label: "日本語", lang: "ja" },
           },
           social: [
+            ...(config.social ?? []),
             {
               icon: "github",
               label: "GitHub",
               href: "https://github.com/ozzy-labs",
             },
           ],
-          customCss: ["@ozzy-labs/docs-theme/styles/theme.css"],
+          customCss: ["@ozzy-labs/docs-theme/styles/theme.css", ...(config.customCss ?? [])],
         });
       },
     },
