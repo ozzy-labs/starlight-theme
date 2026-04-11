@@ -1,0 +1,48 @@
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("rehype-mermaid", () => ({ default: () => {} }));
+
+import { createDocsConfig } from "../src/config.js";
+
+const minimalOptions = {
+  product: "ROAD",
+  base: "/road/",
+  sidebar: [{ label: "Guide", autogenerate: { directory: "guide" } }],
+} as const;
+
+describe("createDocsConfig", () => {
+  it("returns an Astro config with default siteUrl", () => {
+    const config = createDocsConfig(minimalOptions);
+    expect(config.site).toBe("https://ozzylabs.com");
+  });
+
+  it("uses custom siteUrl when provided", () => {
+    const config = createDocsConfig({
+      ...minimalOptions,
+      siteUrl: "https://road.ozzylabs.com",
+    });
+    expect(config.site).toBe("https://road.ozzylabs.com");
+  });
+
+  it("sets base path", () => {
+    const config = createDocsConfig(minimalOptions);
+    expect(config.base).toBe("/road/");
+  });
+
+  it("does not add rehype plugins when mermaid is disabled", () => {
+    const config = createDocsConfig(minimalOptions);
+    expect(config.markdown?.rehypePlugins).toBeUndefined();
+  });
+
+  it("adds rehype-mermaid plugin when mermaid is enabled", () => {
+    const config = createDocsConfig({ ...minimalOptions, mermaid: true });
+    expect(config.markdown?.rehypePlugins).toHaveLength(1);
+  });
+
+  it("includes starlight integration", () => {
+    const config = createDocsConfig(minimalOptions);
+    expect(config.integrations).toBeDefined();
+    expect(Array.isArray(config.integrations)).toBe(true);
+    expect((config.integrations as unknown[]).length).toBeGreaterThan(0);
+  });
+});
