@@ -9,11 +9,13 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./components/*": "./src/components/*"
+    "./components/*": "./src/components/*",
+    "./styles/*": "./src/styles/*"
   },
   "files": [
     "dist",
     "src/components",
+    "src/styles",
     "assets"
   ],
   "scripts": {
@@ -23,7 +25,8 @@
   },
   "dependencies": {
     "@astrojs/starlight": "^0.38.2",
-    "astro": "^6.1.0"
+    "astro": "^6.1.0",
+    "rehype-mermaid": "^3.0.0"
   },
   "devDependencies": {
     "tsup": "^8.0.0",
