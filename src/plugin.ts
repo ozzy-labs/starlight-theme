@@ -1,8 +1,15 @@
-import type { StarlightPlugin } from "@astrojs/starlight/types";
+import type { StarlightPlugin, StarlightUserConfig } from "@astrojs/starlight/types";
+
+type Components = NonNullable<StarlightUserConfig["components"]>;
+
+const defaultComponents: Components = {
+  Footer: "@ozzy-labs/docs-theme/components/Footer.astro",
+  Head: "@ozzy-labs/docs-theme/components/Head.astro",
+};
 
 /**
  * OzzyLabs shared Starlight plugin.
- * Injects common i18n, branding, social links, and theme CSS.
+ * Injects common i18n, branding, social links, theme CSS, and component overrides.
  */
 export function ozzylabsDocsTheme(): StarlightPlugin {
   return {
@@ -24,6 +31,7 @@ export function ozzylabsDocsTheme(): StarlightPlugin {
             },
           ],
           customCss: ["@ozzy-labs/docs-theme/styles/theme.css", ...(config.customCss ?? [])],
+          components: { ...defaultComponents, ...config.components },
         });
       },
     },

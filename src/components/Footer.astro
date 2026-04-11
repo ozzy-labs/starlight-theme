@@ -1,0 +1,32 @@
+---
+import Default from "@astrojs/starlight/components/Footer.astro";
+---
+
+<Default><slot /></Default>
+<footer class="ozzy-site-footer">
+  <nav aria-label="OzzyLabs sites">
+    <a href="https://ozzylabs.com">OzzyLabs</a>
+    <span class="ozzy-site-footer-sep" aria-hidden="true">·</span>
+    <a href="https://github.com/ozzy-labs">GitHub</a>
+  </nav>
+</footer>
+<style>
+  .ozzy-site-footer {
+    padding: 1rem var(--sl-content-pad-x);
+    border-top: 1px solid var(--sl-color-gray-5);
+    text-align: center;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+  .ozzy-site-footer a {
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+  }
+  .ozzy-site-footer a:hover {
+    color: var(--sl-color-white);
+    text-decoration: underline;
+  }
+  .ozzy-site-footer-sep {
+    margin-inline: 0.5rem;
+  }
+</style>
