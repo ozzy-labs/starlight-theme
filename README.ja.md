@@ -19,6 +19,9 @@ import { createDocsConfig } from "@ozzy-labs/docs-theme";
 export default createDocsConfig({
   product: "ROAD",
   base: "/road/",
+  siteUrl: "https://road.ozzylabs.com",
+  mermaid: true,
+  customCss: ["./src/styles/custom.css"],
   sidebar: [
     { label: "Guide", autogenerate: { directory: "guide" } },
   ],
@@ -27,9 +30,39 @@ export default createDocsConfig({
 
 以下が自動で設定される:
 
-- OzzyLabs ブランディング（ロゴ、カラー、ソーシャルリンク）
+- OzzyLabs 共通 CSS テーマ（アクセントカラー、フォント、ダークモード）
 - i18n（英語をルートロケール、日本語）
-- 共通ヘッダー/フッターによるサイト間ナビゲーション
+- GitHub ソーシャルリンク
+- Mermaid ダイアグラムのビルド時 SVG 変換（オプトイン、`playwright` が必要）
+
+### オプション
+
+| オプション | 型 | デフォルト | 説明 |
+|-----------|------|---------|------|
+| `product` | `string` | （必須） | サイトタイトルに表示するプロダクト名 |
+| `base` | `string` | （必須） | ベースパス（例: `/road/`） |
+| `siteUrl` | `string` | `"https://ozzylabs.com"` | 正規サイト URL |
+| `sidebar` | `SidebarConfig` | （必須） | Starlight サイドバー設定 |
+| `mermaid` | `boolean` | `false` | ビルド時 Mermaid SVG レンダリングを有効化 |
+| `plugins` | `StarlightPlugin[]` | `[]` | 追加の Starlight プラグイン |
+| `components` | `object` | — | Starlight コンポーネントオーバーライド |
+| `customCss` | `string[]` | `[]` | 追加 CSS ファイル（テーマ CSS の後に読み込み） |
+
+### syncDocs
+
+ソースリポジトリからドキュメントをコピーし、Docusaurus フロントマターを Starlight 形式に変換するユーティリティ:
+
+```js
+import { syncDocs } from "@ozzy-labs/docs-theme";
+
+const result = syncDocs({
+  sourceDir: "../road/docs",
+  targetDir: "./src/content/docs",
+  transformFrontmatter: true,
+});
+
+console.log(`Synced ${result.fileCount} files`);
+```
 
 ## プロダクトリポジトリ側の構成
 

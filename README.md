@@ -19,6 +19,9 @@ import { createDocsConfig } from "@ozzy-labs/docs-theme";
 export default createDocsConfig({
   product: "ROAD",
   base: "/road/",
+  siteUrl: "https://road.ozzylabs.com",
+  mermaid: true,
+  customCss: ["./src/styles/custom.css"],
   sidebar: [
     { label: "Guide", autogenerate: { directory: "guide" } },
   ],
@@ -27,9 +30,39 @@ export default createDocsConfig({
 
 This generates a full Astro + Starlight configuration with:
 
-- OzzyLabs branding (logo, colors, social links)
+- OzzyLabs shared CSS theme (accent colors, fonts, dark mode)
 - i18n (English as root locale, Japanese)
-- Shared header/footer for cross-site navigation
+- GitHub social link
+- Mermaid diagram rendering at build time (opt-in, requires `playwright`)
+
+### Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `product` | `string` | (required) | Product name in the site title |
+| `base` | `string` | (required) | Base path (e.g., `/road/`) |
+| `siteUrl` | `string` | `"https://ozzylabs.com"` | Canonical site URL |
+| `sidebar` | `SidebarConfig` | (required) | Starlight sidebar configuration |
+| `mermaid` | `boolean` | `false` | Enable build-time Mermaid SVG rendering |
+| `plugins` | `StarlightPlugin[]` | `[]` | Additional Starlight plugins |
+| `components` | `object` | — | Starlight component overrides |
+| `customCss` | `string[]` | `[]` | Additional CSS files (loaded after theme CSS) |
+
+### syncDocs
+
+Utility to copy docs from a source repository and optionally transform Docusaurus frontmatter to Starlight format:
+
+```js
+import { syncDocs } from "@ozzy-labs/docs-theme";
+
+const result = syncDocs({
+  sourceDir: "../road/docs",
+  targetDir: "./src/content/docs",
+  transformFrontmatter: true,
+});
+
+console.log(`Synced ${result.fileCount} files`);
+```
 
 ## Per-product repo footprint
 
