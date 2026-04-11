@@ -2,13 +2,13 @@ import type { StarlightPlugin } from "@astrojs/starlight/types";
 
 /**
  * OzzyLabs shared Starlight plugin.
- * Injects common i18n, branding, and social links configuration.
+ * Injects common i18n, branding, social links, and theme CSS.
  */
 export function ozzylabsDocsTheme(): StarlightPlugin {
   return {
     name: "@ozzy-labs/docs-theme",
     hooks: {
-      "config:setup"({ updateConfig }) {
+      "config:setup"({ config, updateConfig }) {
         updateConfig({
           defaultLocale: "root",
           locales: {
@@ -16,12 +16,14 @@ export function ozzylabsDocsTheme(): StarlightPlugin {
             ja: { label: "日本語", lang: "ja" },
           },
           social: [
+            ...(config.social ?? []),
             {
               icon: "github",
               label: "GitHub",
               href: "https://github.com/ozzy-labs",
             },
           ],
+          customCss: ["@ozzy-labs/docs-theme/styles/theme.css", ...(config.customCss ?? [])],
         });
       },
     },

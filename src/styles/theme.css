@@ -1,0 +1,22 @@
+/*
+ * OzzyLabs shared Starlight theme
+ *
+ * Provides common colors, fonts, and dark mode settings.
+ * Product-specific overrides can be applied via the `customCss` option
+ * in createDocsConfig().
+ */
+
+:root {
+  --sl-color-accent-low: #1a1a2e;
+  --sl-color-accent: #4361ee;
+  --sl-color-accent-high: #c5ceff;
+  --sl-font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --sl-font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", "Fira Code",
+    Menlo, monospace;
+}
+
+:root[data-theme="light"] {
+  --sl-color-accent-low: #dbe1ff;
+  --sl-color-accent: #3a56d4;
+  --sl-color-accent-high: #182052;
+}
