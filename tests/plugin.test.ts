@@ -65,4 +65,40 @@ describe("ozzylabsDocsTheme", () => {
     expect(social[0].icon).toBe("twitter");
     expect(social[1].icon).toBe("github");
   });
+
+  it("injects default component overrides", () => {
+    const plugin = ozzylabsDocsTheme();
+    let updatedConfig: Record<string, unknown> = {};
+
+    plugin.hooks["config:setup"]({
+      config: { social: [], customCss: [] },
+      updateConfig: (partial: Record<string, unknown>) => {
+        updatedConfig = partial;
+      },
+    } as never);
+
+    const components = updatedConfig.components as Record<string, string>;
+    expect(components.Footer).toBe("@ozzy-labs/docs-theme/components/Footer.astro");
+    expect(components.Head).toBe("@ozzy-labs/docs-theme/components/Head.astro");
+  });
+
+  it("preserves user component overrides over defaults", () => {
+    const plugin = ozzylabsDocsTheme();
+    let updatedConfig: Record<string, unknown> = {};
+
+    plugin.hooks["config:setup"]({
+      config: {
+        social: [],
+        customCss: [],
+        components: { Footer: "./src/components/MyFooter.astro" },
+      },
+      updateConfig: (partial: Record<string, unknown>) => {
+        updatedConfig = partial;
+      },
+    } as never);
+
+    const components = updatedConfig.components as Record<string, string>;
+    expect(components.Footer).toBe("./src/components/MyFooter.astro");
+    expect(components.Head).toBe("@ozzy-labs/docs-theme/components/Head.astro");
+  });
 });
