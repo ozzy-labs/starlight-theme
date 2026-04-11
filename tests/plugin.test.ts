@@ -1,0 +1,68 @@
+import { describe, expect, it } from "vitest";
+import { ozzylabsDocsTheme } from "../src/plugin.js";
+
+describe("ozzylabsDocsTheme", () => {
+  it("returns a plugin with correct name", () => {
+    const plugin = ozzylabsDocsTheme();
+    expect(plugin.name).toBe("@ozzy-labs/docs-theme");
+  });
+
+  it("has a config:setup hook", () => {
+    const plugin = ozzylabsDocsTheme();
+    expect(plugin.hooks["config:setup"]).toBeTypeOf("function");
+  });
+
+  it("injects i18n, social, and customCss via updateConfig", () => {
+    const plugin = ozzylabsDocsTheme();
+    let updatedConfig: Record<string, unknown> = {};
+
+    const mockConfig = { social: [], customCss: ["user.css"] };
+    plugin.hooks["config:setup"]({
+      config: mockConfig,
+      updateConfig: (partial: Record<string, unknown>) => {
+        updatedConfig = partial;
+      },
+    } as never);
+
+    expect(updatedConfig.defaultLocale).toBe("root");
+    expect(updatedConfig.locales).toHaveProperty("root");
+    expect(updatedConfig.locales).toHaveProperty("ja");
+  });
+
+  it("preserves existing customCss", () => {
+    const plugin = ozzylabsDocsTheme();
+    let updatedConfig: Record<string, unknown> = {};
+
+    plugin.hooks["config:setup"]({
+      config: { social: [], customCss: ["existing.css"] },
+      updateConfig: (partial: Record<string, unknown>) => {
+        updatedConfig = partial;
+      },
+    } as never);
+
+    const css = updatedConfig.customCss as string[];
+    expect(css).toContain("@ozzy-labs/docs-theme/styles/theme.css");
+    expect(css).toContain("existing.css");
+    expect(css.indexOf("@ozzy-labs/docs-theme/styles/theme.css")).toBeLessThan(
+      css.indexOf("existing.css"),
+    );
+  });
+
+  it("preserves existing social links", () => {
+    const plugin = ozzylabsDocsTheme();
+    let updatedConfig: Record<string, unknown> = {};
+
+    const existingSocial = [{ icon: "twitter", label: "Twitter", href: "https://twitter.com" }];
+    plugin.hooks["config:setup"]({
+      config: { social: existingSocial, customCss: [] },
+      updateConfig: (partial: Record<string, unknown>) => {
+        updatedConfig = partial;
+      },
+    } as never);
+
+    const social = updatedConfig.social as Array<{ icon: string }>;
+    expect(social).toHaveLength(2);
+    expect(social[0].icon).toBe("twitter");
+    expect(social[1].icon).toBe("github");
+  });
+});
