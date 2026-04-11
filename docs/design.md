@@ -6,10 +6,11 @@
 
 ### 含むもの
 
-- **Starlight プラグイン**: i18n（英語/日本語）、ブランディング（ロゴ、カラー、ソーシャルリンク）
+- **Starlight プラグイン**: i18n（英語/日本語）��ソーシャルリンク、共通 CSS テーマの自動注入
 - **設定ファクトリ**: `createDocsConfig()` — 最小オプションから完全な Astro config を生成
-- **コンポーネントオーバーライド**: 共通ヘッダー/フッターによるサイト間ナビゲーション
-- **ブランディング素材**: ロゴ、CSS カスタムプロパティ
+- **共通 CSS テーマ**: アクセントカラー、フォント、ダークモード設定（CSS カスタムプロパティ）
+- **Mermaid サポート**: `rehype-mermaid` によるビルド時 SVG 変換（オプトイン）
+- **docs 同期ユーティリティ**: `syncDocs()` — ソースリポジトリからのドキュメントコ��ーとフロントマター変換
 
 ### 含まないもの
 
@@ -22,8 +23,9 @@
 
 利用者（各プロダクトリポジトリ）が触るのは:
 
-1. `createDocsConfig()` のオプション（product, base, sidebar）
-2. `src/content/docs/` のコンテンツファイル
+1. `createDocsConfig()` のオプション（product, base, siteUrl, sidebar, mermaid, customCss）
+2. `syncDocs()` によるドキュメント同期（Docusaurus 移行時）
+3. `src/content/docs/` のコンテンツファイル
 
 Starlight や Astro の設定詳細は `createDocsConfig()` が隠蔽する。
 
@@ -32,6 +34,9 @@ Starlight や Astro の設定詳細は `createDocsConfig()` が隠蔽する。
 プロダクト固有のカスタマイズが必要な場合:
 
 - **サイドバー**: `createDocsConfig()` の `sidebar` オプションで定義
+- **サイト URL**: `siteUrl` オプションでプロダクト固有の正規 URL を指定
+- **Mermaid**: `mermaid: true` でビルド時 SVG レンダリングを有効化
+- **カスタム CSS**: `customCss` オプションでテーマ CSS の後にプロダクト固有のスタイルを追加
 - **追加の Starlight プラグイン**: `plugins` オプションで追加可能
 - **コンポーネント**: `components` オプションでプロダクト固有のオーバーライドを追加可能
 
@@ -41,12 +46,16 @@ Starlight や Astro の設定詳細は `createDocsConfig()` が隠蔽する。
 @ozzy-labs/docs-theme
 ├── plugin        Starlight プラグイン（config:setup フック）
 │   ├── i18n      英語（root）+ 日本語
-│   ├── branding  ロゴ、カラー、ソーシャルリンク
-│   └── components  共通ヘッダー/フッター
-└── config        createDocsConfig() ファクトリ
-    ├── Astro defineConfig をラップ
-    ├── Starlight integration を自動設定
-    └── プロダクト固有オプションをマージ
+│   ├── social    GitHub ソーシャルリンク
+│   └── theme     共通 CSS テーマの自動注入
+├── config        createDocsConfig() ファクトリ
+│   ├── Astro defineConfig をラップ
+│   ├── Starlight integration を自動設定
+│   ├── rehype-mermaid の条件付き有効化
+│   └── プロダクト固有オプションをマージ
+└── sync          syncDocs() ユーティリティ
+    ├── ソースディレクトリからのファイルコピー
+    └── Docusaurus → Starlight フロントマター変換
 ```
 
 ## 関連ドキュメント
