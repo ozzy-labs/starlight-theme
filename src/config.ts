@@ -29,7 +29,7 @@ export interface DocsConfigOptions {
  *
  * @example
  * ```js
- * import { createDocsConfig } from "@ozzy-labs/docs-theme";
+ * import { createDocsConfig } from "@ozzylabs/docs-theme";
  *
  * export default createDocsConfig({
  *   product: "ROAD",

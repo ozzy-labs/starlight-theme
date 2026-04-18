@@ -6,7 +6,7 @@ Accepted (2026-04-04)
 
 ## Context
 
-`@ozzy-labs/docs-theme` は TypeScript で記述された npm パッケージであり、ESM 形式で配布する必要がある。ビルドツールの選択が必要。
+`@ozzylabs/docs-theme` は TypeScript で記述された npm パッケージであり、ESM 形式で配布する必要がある。ビルドツールの選択が必要。
 
 選択肢:
 

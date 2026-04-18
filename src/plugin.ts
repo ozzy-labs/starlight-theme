@@ -3,8 +3,8 @@ import type { StarlightPlugin, StarlightUserConfig } from "@astrojs/starlight/ty
 type Components = NonNullable<StarlightUserConfig["components"]>;
 
 const defaultComponents: Components = {
-  Footer: "@ozzy-labs/docs-theme/components/Footer.astro",
-  Head: "@ozzy-labs/docs-theme/components/Head.astro",
+  Footer: "@ozzylabs/docs-theme/components/Footer.astro",
+  Head: "@ozzylabs/docs-theme/components/Head.astro",
 };
 
 /**
@@ -13,7 +13,7 @@ const defaultComponents: Components = {
  */
 export function ozzylabsDocsTheme(): StarlightPlugin {
   return {
-    name: "@ozzy-labs/docs-theme",
+    name: "@ozzylabs/docs-theme",
     hooks: {
       "config:setup"({ config, updateConfig }) {
         updateConfig({
@@ -30,7 +30,7 @@ export function ozzylabsDocsTheme(): StarlightPlugin {
               href: "https://github.com/ozzy-labs",
             },
           ],
-          customCss: ["@ozzy-labs/docs-theme/styles/theme.css", ...(config.customCss ?? [])],
+          customCss: ["@ozzylabs/docs-theme/styles/theme.css", ...(config.customCss ?? [])],
           components: { ...defaultComponents, ...config.components },
         });
       },
