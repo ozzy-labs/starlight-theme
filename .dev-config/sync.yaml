@@ -5,3 +5,4 @@ synced_at: 2026-04-18T06:38:35Z
 pinned:
   - CLAUDE.md
   - .gitignore
+  - .github/workflows/pr-check.yaml
