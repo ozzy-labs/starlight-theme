@@ -37,6 +37,10 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
-    ]
+    ],
+    "overrides": {
+      "dompurify@<3.4.0": "^3.4.0",
+      "vite": "^7.3.2"
+    }
   }
 }
