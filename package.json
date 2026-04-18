@@ -1,5 +1,5 @@
 {
-  "name": "@ozzy-labs/docs-theme",
+  "name": "@ozzylabs/docs-theme",
   "version": "0.0.1",
   "description": "Shared Starlight docs theme for OzzyLabs product repositories",
   "type": "module",

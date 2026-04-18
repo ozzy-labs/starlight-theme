@@ -7,14 +7,14 @@ OzzyLabs プロダクトリポジトリ共通の Starlight ドキュメントテ
 ## インストール
 
 ```bash
-pnpm add @ozzy-labs/docs-theme
+pnpm add @ozzylabs/docs-theme
 ```
 
 ## 使い方
 
 ```js
 // docs/astro.config.mjs
-import { createDocsConfig } from "@ozzy-labs/docs-theme";
+import { createDocsConfig } from "@ozzylabs/docs-theme";
 
 export default createDocsConfig({
   product: "ROAD",
@@ -53,7 +53,7 @@ export default createDocsConfig({
 ソースリポジトリからドキュメントをコピーし、Docusaurus フロントマターを Starlight 形式に変換するユーティリティ:
 
 ```js
-import { syncDocs } from "@ozzy-labs/docs-theme";
+import { syncDocs } from "@ozzylabs/docs-theme";
 
 const result = syncDocs({
   sourceDir: "../road/docs",

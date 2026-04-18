@@ -7,14 +7,14 @@ Shared Starlight docs theme for OzzyLabs product repositories.
 ## Installation
 
 ```bash
-pnpm add @ozzy-labs/docs-theme
+pnpm add @ozzylabs/docs-theme
 ```
 
 ## Usage
 
 ```js
 // docs/astro.config.mjs
-import { createDocsConfig } from "@ozzy-labs/docs-theme";
+import { createDocsConfig } from "@ozzylabs/docs-theme";
 
 export default createDocsConfig({
   product: "ROAD",
@@ -53,7 +53,7 @@ This generates a full Astro + Starlight configuration with:
 Utility to copy docs from a source repository and optionally transform Docusaurus frontmatter to Starlight format:
 
 ```js
-import { syncDocs } from "@ozzy-labs/docs-theme";
+import { syncDocs } from "@ozzylabs/docs-theme";
 
 const result = syncDocs({
   sourceDir: "../road/docs",
