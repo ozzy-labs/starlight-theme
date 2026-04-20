@@ -4,7 +4,7 @@ import { ozzylabsDocsTheme } from "../src/plugin.js";
 describe("ozzylabsDocsTheme", () => {
   it("returns a plugin with correct name", () => {
     const plugin = ozzylabsDocsTheme();
-    expect(plugin.name).toBe("@ozzylabs/docs-theme");
+    expect(plugin.name).toBe("@ozzylabs/starlight-theme");
   });
 
   it("has a config:setup hook", () => {
@@ -41,9 +41,9 @@ describe("ozzylabsDocsTheme", () => {
     } as never);
 
     const css = updatedConfig.customCss as string[];
-    expect(css).toContain("@ozzylabs/docs-theme/styles/theme.css");
+    expect(css).toContain("@ozzylabs/starlight-theme/styles/theme.css");
     expect(css).toContain("existing.css");
-    expect(css.indexOf("@ozzylabs/docs-theme/styles/theme.css")).toBeLessThan(
+    expect(css.indexOf("@ozzylabs/starlight-theme/styles/theme.css")).toBeLessThan(
       css.indexOf("existing.css"),
     );
   });
@@ -78,8 +78,8 @@ describe("ozzylabsDocsTheme", () => {
     } as never);
 
     const components = updatedConfig.components as Record<string, string>;
-    expect(components.Footer).toBe("@ozzylabs/docs-theme/components/Footer.astro");
-    expect(components.Head).toBe("@ozzylabs/docs-theme/components/Head.astro");
+    expect(components.Footer).toBe("@ozzylabs/starlight-theme/components/Footer.astro");
+    expect(components.Head).toBe("@ozzylabs/starlight-theme/components/Head.astro");
   });
 
   it("preserves user component overrides over defaults", () => {
@@ -99,6 +99,6 @@ describe("ozzylabsDocsTheme", () => {
 
     const components = updatedConfig.components as Record<string, string>;
     expect(components.Footer).toBe("./src/components/MyFooter.astro");
-    expect(components.Head).toBe("@ozzylabs/docs-theme/components/Head.astro");
+    expect(components.Head).toBe("@ozzylabs/starlight-theme/components/Head.astro");
   });
 });

@@ -1,20 +1,20 @@
 [English](README.md) | 日本語
 
-# docs-theme
+# starlight-theme
 
 OzzyLabs プロダクトリポジトリ共通の Starlight ドキュメントテーマ。
 
 ## インストール
 
 ```bash
-pnpm add @ozzylabs/docs-theme
+pnpm add @ozzylabs/starlight-theme
 ```
 
 ## 使い方
 
 ```js
 // docs/astro.config.mjs
-import { createDocsConfig } from "@ozzylabs/docs-theme";
+import { createDocsConfig } from "@ozzylabs/starlight-theme";
 
 export default createDocsConfig({
   product: "ROAD",
@@ -53,7 +53,7 @@ export default createDocsConfig({
 ソースリポジトリからドキュメントをコピーし、Docusaurus フロントマターを Starlight 形式に変換するユーティリティ:
 
 ```js
-import { syncDocs } from "@ozzylabs/docs-theme";
+import { syncDocs } from "@ozzylabs/starlight-theme";
 
 const result = syncDocs({
   sourceDir: "../road/docs",
