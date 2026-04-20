@@ -2,7 +2,7 @@
 
 ## パッケージの責務
 
-`@ozzylabs/docs-theme` は、各プロダクトリポジトリのドキュメントサイトに**共通の見た目・設定・ナビゲーション**を提供する。
+`@ozzylabs/starlight-theme` は、各プロダクトリポジトリのドキュメントサイトに**共通の見た目・設定・ナビゲーション**を提供する。
 
 ### 含むもの
 
@@ -43,7 +43,7 @@ Starlight や Astro の設定詳細は `createDocsConfig()` が隠蔽する。
 ## アーキテクチャ
 
 ```text
-@ozzylabs/docs-theme
+@ozzylabs/starlight-theme
 ├── plugin        Starlight プラグイン（config:setup フック）
 │   ├── i18n      英語（root）+ 日本語
 │   ├── social    GitHub ソーシャルリンク

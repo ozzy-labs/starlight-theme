@@ -1,20 +1,20 @@
 English | [日本語](README.ja.md)
 
-# docs-theme
+# starlight-theme
 
 Shared Starlight docs theme for OzzyLabs product repositories.
 
 ## Installation
 
 ```bash
-pnpm add @ozzylabs/docs-theme
+pnpm add @ozzylabs/starlight-theme
 ```
 
 ## Usage
 
 ```js
 // docs/astro.config.mjs
-import { createDocsConfig } from "@ozzylabs/docs-theme";
+import { createDocsConfig } from "@ozzylabs/starlight-theme";
 
 export default createDocsConfig({
   product: "ROAD",
@@ -53,7 +53,7 @@ This generates a full Astro + Starlight configuration with:
 Utility to copy docs from a source repository and optionally transform Docusaurus frontmatter to Starlight format:
 
 ```js
-import { syncDocs } from "@ozzylabs/docs-theme";
+import { syncDocs } from "@ozzylabs/starlight-theme";
 
 const result = syncDocs({
   sourceDir: "../road/docs",
@@ -72,6 +72,10 @@ docs/
 ├── package.json
 └── src/content/docs/      # Content only
 ```
+
+## Migration from `@ozzylabs/docs-theme`
+
+`@ozzylabs/docs-theme` は npm 未公開（0.0.1 ローカルのみ）のため、新規に `@ozzylabs/starlight-theme` を初回 publish する運用。旧パッケージ名への参照があれば `@ozzylabs/starlight-theme` に置換。
 
 ## Language
 

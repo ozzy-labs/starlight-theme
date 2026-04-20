@@ -9,7 +9,7 @@ describe("syncDocs", () => {
   let targetDir: string;
 
   beforeEach(() => {
-    const base = join(tmpdir(), `docs-theme-test-${Date.now()}`);
+    const base = join(tmpdir(), `starlight-theme-test-${Date.now()}`);
     sourceDir = join(base, "source");
     targetDir = join(base, "target");
     mkdirSync(sourceDir, { recursive: true });
