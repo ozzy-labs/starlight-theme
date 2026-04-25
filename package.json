@@ -26,13 +26,13 @@
   },
   "dependencies": {
     "@astrojs/starlight": "^0.38.2",
-    "astro": "^6.1.0",
+    "astro": "^6.1.9",
     "rehype-mermaid": "^3.0.0"
   },
   "devDependencies": {
     "tsup": "^8.0.0",
     "typescript": "^5.8.0",
-    "vitest": "4.1.4"
+    "vitest": "4.1.5"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -40,7 +40,9 @@
     ],
     "overrides": {
       "dompurify@<3.4.0": "^3.4.0",
-      "vite": "^7.3.2"
+      "postcss@^8.0.0": "^8.5.10",
+      "uuid@^11.0.0": "^14.0.0",
+      "vite": "^8.0.10"
     }
   }
 }
