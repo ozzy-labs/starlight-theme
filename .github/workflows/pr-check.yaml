@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
 
+concurrency:
+  group: pr-check-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
   pull-requests: read
@@ -16,14 +20,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4
         with:
-          node-version: "24"
-          cache: pnpm
+          install: true
+          cache: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # trivy is a local-only security scanner (lefthook pre-commit / dev use).
+          # CI build/test does not need it, and resolving aqua:aquasecurity/trivy
+          # releases via GitHub API has been hitting 403 (secondary rate limit /
+          # auth scope) even with GITHUB_TOKEN set. Skip install in CI entirely.
+          # See handbook#84 / commons#73.
+          MISE_DISABLE_TOOLS: trivy
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
