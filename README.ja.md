@@ -10,6 +10,12 @@ OzzyLabs プロダクトリポジトリ共通の Starlight ドキュメントテ
 pnpm add @ozzylabs/starlight-theme
 ```
 
+`@astrojs/starlight` と `astro` は peerDependencies です。docs プロジェクトに未インストールの場合:
+
+```bash
+pnpm add @astrojs/starlight astro
+```
+
 ## 使い方
 
 ```js
