@@ -11,7 +11,7 @@ const defaultComponents: Components = {
  * OzzyLabs shared Starlight plugin.
  * Injects common i18n, branding, social links, theme CSS, and component overrides.
  */
-export function ozzylabsDocsTheme(): StarlightPlugin {
+export function ozzylabsStarlightTheme(): StarlightPlugin {
   return {
     name: "@ozzylabs/starlight-theme",
     hooks: {

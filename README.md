@@ -73,10 +73,6 @@ docs/
 └── src/content/docs/      # Content only
 ```
 
-## Migration from `@ozzylabs/docs-theme`
-
-`@ozzylabs/docs-theme` は npm 未公開（0.0.1 ローカルのみ）のため、新規に `@ozzylabs/starlight-theme` を初回 publish する運用。旧パッケージ名への参照があれば `@ozzylabs/starlight-theme` に置換。
-
 ## Language
 
 - Default: Japanese

@@ -1,19 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { ozzylabsDocsTheme } from "../src/plugin.js";
+import { ozzylabsStarlightTheme } from "../src/plugin.js";
 
-describe("ozzylabsDocsTheme", () => {
+describe("ozzylabsStarlightTheme", () => {
   it("returns a plugin with correct name", () => {
-    const plugin = ozzylabsDocsTheme();
+    const plugin = ozzylabsStarlightTheme();
     expect(plugin.name).toBe("@ozzylabs/starlight-theme");
   });
 
   it("has a config:setup hook", () => {
-    const plugin = ozzylabsDocsTheme();
+    const plugin = ozzylabsStarlightTheme();
     expect(plugin.hooks["config:setup"]).toBeTypeOf("function");
   });
 
   it("injects i18n, social, and customCss via updateConfig", () => {
-    const plugin = ozzylabsDocsTheme();
+    const plugin = ozzylabsStarlightTheme();
     let updatedConfig: Record<string, unknown> = {};
 
     const mockConfig = { social: [], customCss: ["user.css"] };
@@ -30,7 +30,7 @@ describe("ozzylabsDocsTheme", () => {
   });
 
   it("preserves existing customCss", () => {
-    const plugin = ozzylabsDocsTheme();
+    const plugin = ozzylabsStarlightTheme();
     let updatedConfig: Record<string, unknown> = {};
 
     plugin.hooks["config:setup"]({
@@ -49,7 +49,7 @@ describe("ozzylabsDocsTheme", () => {
   });
 
   it("preserves existing social links", () => {
-    const plugin = ozzylabsDocsTheme();
+    const plugin = ozzylabsStarlightTheme();
     let updatedConfig: Record<string, unknown> = {};
 
     const existingSocial = [{ icon: "twitter", label: "Twitter", href: "https://twitter.com" }];
@@ -67,7 +67,7 @@ describe("ozzylabsDocsTheme", () => {
   });
 
   it("injects default component overrides", () => {
-    const plugin = ozzylabsDocsTheme();
+    const plugin = ozzylabsStarlightTheme();
     let updatedConfig: Record<string, unknown> = {};
 
     plugin.hooks["config:setup"]({
@@ -83,7 +83,7 @@ describe("ozzylabsDocsTheme", () => {
   });
 
   it("preserves user component overrides over defaults", () => {
-    const plugin = ozzylabsDocsTheme();
+    const plugin = ozzylabsStarlightTheme();
     let updatedConfig: Record<string, unknown> = {};
 
     plugin.hooks["config:setup"]({
