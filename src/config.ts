@@ -3,7 +3,7 @@ import type { StarlightUserConfig } from "@astrojs/starlight/types";
 import type { AstroUserConfig } from "astro";
 import { defineConfig } from "astro/config";
 import rehypeMermaid from "rehype-mermaid";
-import { ozzylabsDocsTheme } from "./plugin.js";
+import { ozzylabsStarlightTheme } from "./plugin.js";
 
 export interface DocsConfigOptions {
   /** Product name displayed in the site title (e.g., "ROAD") */
@@ -62,7 +62,7 @@ export function createDocsConfig(options: DocsConfigOptions): AstroUserConfig {
         sidebar,
         components,
         customCss,
-        plugins: [ozzylabsDocsTheme(), ...plugins],
+        plugins: [ozzylabsStarlightTheme(), ...plugins],
       }),
     ],
   });
