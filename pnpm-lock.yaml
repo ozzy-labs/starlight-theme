@@ -14,16 +14,16 @@ importers:
 
   .:
     dependencies:
+      rehype-mermaid:
+        specifier: ^3.0.0
+        version: 3.0.0
+    devDependencies:
       '@astrojs/starlight':
         specifier: ^0.38.2
         version: 0.38.2(astro@6.1.9(@types/node@24.12.2)(rollup@4.60.1)(typescript@5.9.3))
       astro:
         specifier: ^6.1.9
         version: 6.1.9(@types/node@24.12.2)(rollup@4.60.1)(typescript@5.9.3)
-      rehype-mermaid:
-        specifier: ^3.0.0
-        version: 3.0.0
-    devDependencies:
       tsup:
         specifier: ^8.0.0
         version: 8.5.1(postcss@8.5.10)(typescript@5.9.3)
