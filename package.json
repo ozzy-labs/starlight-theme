@@ -4,7 +4,28 @@
   "description": "Shared Starlight docs theme for OzzyLabs product repositories",
   "type": "module",
   "license": "MIT",
+  "author": "ozzy-labs",
+  "homepage": "https://github.com/ozzy-labs/starlight-theme#readme",
+  "bugs": "https://github.com/ozzy-labs/starlight-theme/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ozzy-labs/starlight-theme.git"
+  },
+  "keywords": [
+    "starlight",
+    "astro",
+    "docs",
+    "theme",
+    "ozzylabs"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
   "packageManager": "pnpm@10.33.0",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -24,12 +45,16 @@
     "dev": "tsup --watch",
     "test": "vitest run"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@astrojs/starlight": "^0.38.2",
-    "astro": "^6.1.9",
+    "astro": "^6.1.9"
+  },
+  "dependencies": {
     "rehype-mermaid": "^3.0.0"
   },
   "devDependencies": {
+    "@astrojs/starlight": "^0.38.2",
+    "astro": "^6.1.9",
     "tsup": "^8.0.0",
     "typescript": "^5.8.0",
     "vitest": "4.1.5"
