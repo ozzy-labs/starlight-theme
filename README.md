@@ -10,6 +10,12 @@ Shared Starlight docs theme for OzzyLabs product repositories.
 pnpm add @ozzylabs/starlight-theme
 ```
 
+`@astrojs/starlight` and `astro` are peer dependencies. If not already installed in your docs project:
+
+```bash
+pnpm add @astrojs/starlight astro
+```
+
 ## Usage
 
 ```js
