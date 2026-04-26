@@ -1,6 +1,6 @@
 {
   "name": "@ozzylabs/starlight-theme",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Shared Starlight docs theme for OzzyLabs product repositories",
   "type": "module",
   "license": "MIT",
