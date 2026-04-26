@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1](https://github.com/ozzy-labs/starlight-theme/compare/starlight-theme-v0.1.0...starlight-theme-v0.1.1) (2026-04-26)
+
+
+### Bug Fixes
+
+* normalize repository.url to git+https scheme ([#40](https://github.com/ozzy-labs/starlight-theme/issues/40)) ([756f2e3](https://github.com/ozzy-labs/starlight-theme/commit/756f2e390867ad3dc0288ad2c9a8aced74eb5176))
+* **readme:** document peerDependencies installation ([#42](https://github.com/ozzy-labs/starlight-theme/issues/42)) ([8143998](https://github.com/ozzy-labs/starlight-theme/commit/814399803cfbade6a607fb25691304e7b603d5ff))
+
 ## 0.1.0 (2026-04-26)
 
 ### Features
