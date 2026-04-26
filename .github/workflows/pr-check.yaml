@@ -79,8 +79,8 @@ jobs:
             const branch = context.payload.pull_request.head.ref;
             const pattern = /^(feat|fix|docs|style|refactor|perf|test|build|ci|chore)\/.+/;
 
-            if (branch === 'main') {
-              core.info('Branch is main, skipping check');
+            if (branch === 'main' || branch.startsWith('release-please--')) {
+              core.info('Branch is main or release-please, skipping check');
               return;
             }
 
