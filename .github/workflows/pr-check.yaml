@@ -1,57 +1,21 @@
+# begin: ozzy-labs/commons
 name: PR Check
 
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
 
-concurrency:
-  group: pr-check-${{ github.ref }}
-  cancel-in-progress: true
-
 permissions:
   contents: read
   pull-requests: read
 
 jobs:
-  build:
-    name: Build & Typecheck
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-
-      - uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4
-        with:
-          install: true
-          cache: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # trivy is a local-only security scanner (lefthook pre-commit / dev use).
-          # CI build/test does not need it, and resolving aqua:aquasecurity/trivy
-          # releases via GitHub API has been hitting 403 (secondary rate limit /
-          # auth scope) even with GITHUB_TOKEN set. Skip install in CI entirely.
-          # See handbook#84 / commons#73.
-          MISE_DISABLE_TOOLS: trivy
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm run build
-
-      - name: Typecheck
-        run: pnpm run typecheck
-
-      - name: Test
-        run: pnpm run test
-
   pr-title-check:
     name: PR Title Format Check
     runs-on: ubuntu-latest
     steps:
       - name: Check PR title format
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const title = context.payload.pull_request.title;
@@ -73,14 +37,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check branch name format
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const branch = context.payload.pull_request.head.ref;
+            const actor = context.payload.pull_request.user?.login ?? '';
             const pattern = /^(feat|fix|docs|style|refactor|perf|test|build|ci|chore)\/.+/;
 
-            if (branch === 'main' || branch.startsWith('release-please--')) {
-              core.info('Branch is main or release-please, skipping check');
+            if (branch === 'main') {
+              core.info('Branch is main, skipping check');
+              return;
+            }
+
+            if (branch.startsWith('release-please--')) {
+              core.info('Branch is a release-please auto PR, skipping check');
+              return;
+            }
+
+            if (actor === 'dependabot[bot]' || branch.startsWith('dependabot/')) {
+              core.info(`Branch is managed by Dependabot (${branch}), skipping check`);
               return;
             }
 
@@ -94,3 +69,4 @@ jobs:
             } else {
               core.info('Branch name follows naming convention');
             }
+# end: ozzy-labs/commons
