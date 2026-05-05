@@ -14,3 +14,4 @@ pinned:
   - CLAUDE.md
   - .gitignore
   - .github/workflows/pr-check.yaml
+  - .github/workflows/sync-commons.yaml
