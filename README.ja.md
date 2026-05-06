@@ -2,7 +2,7 @@
 
 # starlight-theme
 
-OzzyLabs プロダクトリポジトリ共通の Starlight ドキュメントテーマ。
+共有 Starlight ドキュメントテーマ。
 
 ## インストール
 
@@ -23,9 +23,10 @@ pnpm add @astrojs/starlight astro
 import { createDocsConfig } from "@ozzylabs/starlight-theme";
 
 export default createDocsConfig({
-  product: "ROAD",
-  base: "/road/",
-  siteUrl: "https://road.ozzylabs.com",
+  title: "MyProduct",
+  base: "/myproduct/",
+  siteUrl: "https://docs.example.com",
+  githubUrl: "https://github.com/example/myproduct",
   mermaid: true,
   customCss: ["./src/styles/custom.css"],
   sidebar: [
@@ -36,19 +37,22 @@ export default createDocsConfig({
 
 以下が自動で設定される:
 
-- OzzyLabs 共通 CSS テーマ（アクセントカラー、フォント、ダークモード）
-- i18n（英語をルートロケール、日本語）
-- GitHub ソーシャルリンク
+- 共通 CSS テーマ（アクセントカラー、フォント、ダークモード）
+- i18n デフォルト（英語をルートロケール、日本語）— `locales` で上書き可
+- GitHub ソーシャルリンク（`githubUrl` 指定時のみ）
 - Mermaid ダイアグラムのビルド時 SVG 変換（オプトイン、`playwright` が必要）
 
 ### オプション
 
 | オプション | 型 | デフォルト | 説明 |
 |-----------|------|---------|------|
-| `product` | `string` | （必須） | サイトタイトルに表示するプロダクト名 |
-| `base` | `string` | （必須） | ベースパス（例: `/road/`） |
-| `siteUrl` | `string` | `"https://ozzylabs.com"` | 正規サイト URL |
+| `title` | `string` | （必須） | Starlight に渡すサイトタイトル |
+| `base` | `string` | （必須） | ベースパス（例: `/myproduct/`） |
+| `siteUrl` | `string` | （必須） | 正規サイト URL |
 | `sidebar` | `SidebarConfig` | （必須） | Starlight サイドバー設定 |
+| `githubUrl` | `string` | — | 指定時に GitHub ソーシャルリンクを追加 |
+| `locales` | `LocalesConfig` | 英語（root）＋ 日本語 | ロケール設定 |
+| `defaultLocale` | `string` | `"root"` | デフォルトロケールのキー |
 | `mermaid` | `boolean` | `false` | ビルド時 Mermaid SVG レンダリングを有効化 |
 | `plugins` | `StarlightPlugin[]` | `[]` | 追加の Starlight プラグイン |
 | `components` | `object` | — | Starlight コンポーネントオーバーライド |
@@ -62,7 +66,7 @@ export default createDocsConfig({
 import { syncDocs } from "@ozzylabs/starlight-theme";
 
 const result = syncDocs({
-  sourceDir: "../road/docs",
+  sourceDir: "../source-repo/docs",
   targetDir: "./src/content/docs",
   transformFrontmatter: true,
 });

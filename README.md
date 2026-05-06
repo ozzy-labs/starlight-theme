@@ -2,7 +2,7 @@ English | [日本語](README.ja.md)
 
 # starlight-theme
 
-Shared Starlight docs theme for OzzyLabs product repositories.
+Shared Starlight docs theme.
 
 ## Installation
 
@@ -23,9 +23,10 @@ pnpm add @astrojs/starlight astro
 import { createDocsConfig } from "@ozzylabs/starlight-theme";
 
 export default createDocsConfig({
-  product: "ROAD",
-  base: "/road/",
-  siteUrl: "https://road.ozzylabs.com",
+  title: "MyProduct",
+  base: "/myproduct/",
+  siteUrl: "https://docs.example.com",
+  githubUrl: "https://github.com/example/myproduct",
   mermaid: true,
   customCss: ["./src/styles/custom.css"],
   sidebar: [
@@ -36,19 +37,22 @@ export default createDocsConfig({
 
 This generates a full Astro + Starlight configuration with:
 
-- OzzyLabs shared CSS theme (accent colors, fonts, dark mode)
-- i18n (English as root locale, Japanese)
-- GitHub social link
+- Shared CSS theme (accent colors, fonts, dark mode)
+- i18n defaults (English as root locale, Japanese) — overridable via `locales`
+- Optional GitHub social link (when `githubUrl` is provided)
 - Mermaid diagram rendering at build time (opt-in, requires `playwright`)
 
 ### Options
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `product` | `string` | (required) | Product name in the site title |
-| `base` | `string` | (required) | Base path (e.g., `/road/`) |
-| `siteUrl` | `string` | `"https://ozzylabs.com"` | Canonical site URL |
+| `title` | `string` | (required) | Site title passed to Starlight |
+| `base` | `string` | (required) | Base path (e.g., `/myproduct/`) |
+| `siteUrl` | `string` | (required) | Canonical site URL |
 | `sidebar` | `SidebarConfig` | (required) | Starlight sidebar configuration |
+| `githubUrl` | `string` | — | If set, adds a GitHub social link |
+| `locales` | `LocalesConfig` | English (root) + Japanese | Locale configuration |
+| `defaultLocale` | `string` | `"root"` | Default locale key |
 | `mermaid` | `boolean` | `false` | Enable build-time Mermaid SVG rendering |
 | `plugins` | `StarlightPlugin[]` | `[]` | Additional Starlight plugins |
 | `components` | `object` | — | Starlight component overrides |
@@ -62,7 +66,7 @@ Utility to copy docs from a source repository and optionally transform Docusauru
 import { syncDocs } from "@ozzylabs/starlight-theme";
 
 const result = syncDocs({
-  sourceDir: "../road/docs",
+  sourceDir: "../source-repo/docs",
   targetDir: "./src/content/docs",
   transformFrontmatter: true,
 });

@@ -1,7 +1,5 @@
 /*
- * OzzyLabs shared Starlight theme
- *
- * Provides common colors, fonts, and dark mode settings.
+ * Shared Starlight theme: common colors, fonts, and dark mode settings.
  * Product-specific overrides can be applied via the `customCss` option
  * in createDocsConfig().
  */

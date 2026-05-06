@@ -12,13 +12,12 @@ describe("ozzylabsStarlightTheme", () => {
     expect(plugin.hooks["config:setup"]).toBeTypeOf("function");
   });
 
-  it("injects i18n, social, and customCss via updateConfig", () => {
+  it("injects default i18n via updateConfig", () => {
     const plugin = ozzylabsStarlightTheme();
     let updatedConfig: Record<string, unknown> = {};
 
-    const mockConfig = { social: [], customCss: ["user.css"] };
     plugin.hooks["config:setup"]({
-      config: mockConfig,
+      config: { social: [], customCss: ["user.css"] },
       updateConfig: (partial: Record<string, unknown>) => {
         updatedConfig = partial;
       },
@@ -29,7 +28,25 @@ describe("ozzylabsStarlightTheme", () => {
     expect(updatedConfig.locales).toHaveProperty("ja");
   });
 
-  it("preserves existing customCss", () => {
+  it("allows overriding locales and defaultLocale", () => {
+    const plugin = ozzylabsStarlightTheme({
+      locales: { en: { label: "English", lang: "en" } },
+      defaultLocale: "en",
+    });
+    let updatedConfig: Record<string, unknown> = {};
+
+    plugin.hooks["config:setup"]({
+      config: { social: [], customCss: [] },
+      updateConfig: (partial: Record<string, unknown>) => {
+        updatedConfig = partial;
+      },
+    } as never);
+
+    expect(updatedConfig.defaultLocale).toBe("en");
+    expect(updatedConfig.locales).toEqual({ en: { label: "English", lang: "en" } });
+  });
+
+  it("preserves existing customCss and prepends theme css", () => {
     const plugin = ozzylabsStarlightTheme();
     let updatedConfig: Record<string, unknown> = {};
 
@@ -48,8 +65,40 @@ describe("ozzylabsStarlightTheme", () => {
     );
   });
 
-  it("preserves existing social links", () => {
+  it("does not add a GitHub social link when githubUrl is omitted", () => {
     const plugin = ozzylabsStarlightTheme();
+    let updatedConfig: Record<string, unknown> = {};
+
+    plugin.hooks["config:setup"]({
+      config: { social: [], customCss: [] },
+      updateConfig: (partial: Record<string, unknown>) => {
+        updatedConfig = partial;
+      },
+    } as never);
+
+    const social = updatedConfig.social as Array<{ icon: string }>;
+    expect(social).toEqual([]);
+  });
+
+  it("adds a GitHub social link when githubUrl is provided", () => {
+    const plugin = ozzylabsStarlightTheme({ githubUrl: "https://github.com/example/repo" });
+    let updatedConfig: Record<string, unknown> = {};
+
+    plugin.hooks["config:setup"]({
+      config: { social: [], customCss: [] },
+      updateConfig: (partial: Record<string, unknown>) => {
+        updatedConfig = partial;
+      },
+    } as never);
+
+    const social = updatedConfig.social as Array<{ icon: string; href: string }>;
+    expect(social).toHaveLength(1);
+    expect(social[0].icon).toBe("github");
+    expect(social[0].href).toBe("https://github.com/example/repo");
+  });
+
+  it("preserves existing social links and appends GitHub when provided", () => {
+    const plugin = ozzylabsStarlightTheme({ githubUrl: "https://github.com/example/repo" });
     let updatedConfig: Record<string, unknown> = {};
 
     const existingSocial = [{ icon: "twitter", label: "Twitter", href: "https://twitter.com" }];
@@ -66,7 +115,7 @@ describe("ozzylabsStarlightTheme", () => {
     expect(social[1].icon).toBe("github");
   });
 
-  it("injects default component overrides", () => {
+  it("injects only the Head component override (no Footer)", () => {
     const plugin = ozzylabsStarlightTheme();
     let updatedConfig: Record<string, unknown> = {};
 
@@ -78,8 +127,8 @@ describe("ozzylabsStarlightTheme", () => {
     } as never);
 
     const components = updatedConfig.components as Record<string, string>;
-    expect(components.Footer).toBe("@ozzylabs/starlight-theme/components/Footer.astro");
     expect(components.Head).toBe("@ozzylabs/starlight-theme/components/Head.astro");
+    expect(components.Footer).toBeUndefined();
   });
 
   it("preserves user component overrides over defaults", () => {
@@ -90,7 +139,7 @@ describe("ozzylabsStarlightTheme", () => {
       config: {
         social: [],
         customCss: [],
-        components: { Footer: "./src/components/MyFooter.astro" },
+        components: { Head: "./src/components/MyHead.astro" },
       },
       updateConfig: (partial: Record<string, unknown>) => {
         updatedConfig = partial;
@@ -98,7 +147,6 @@ describe("ozzylabsStarlightTheme", () => {
     } as never);
 
     const components = updatedConfig.components as Record<string, string>;
-    expect(components.Footer).toBe("./src/components/MyFooter.astro");
-    expect(components.Head).toBe("@ozzylabs/starlight-theme/components/Head.astro");
+    expect(components.Head).toBe("./src/components/MyHead.astro");
   });
 });

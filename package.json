@@ -1,7 +1,7 @@
 {
   "name": "@ozzylabs/starlight-theme",
   "version": "0.1.1",
-  "description": "Shared Starlight docs theme for OzzyLabs product repositories",
+  "description": "Shared Starlight docs theme",
   "type": "module",
   "license": "MIT",
   "author": "ozzy-labs",
@@ -15,8 +15,7 @@
     "starlight",
     "astro",
     "docs",
-    "theme",
-    "ozzylabs"
+    "theme"
   ],
   "engines": {
     "node": ">=22"

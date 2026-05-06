@@ -5,28 +5,21 @@ vi.mock("rehype-mermaid", () => ({ default: () => {} }));
 import { createDocsConfig } from "../src/config.js";
 
 const minimalOptions = {
-  product: "ROAD",
-  base: "/road/",
+  title: "MyProduct",
+  base: "/myproduct/",
+  siteUrl: "https://docs.example.com",
   sidebar: [{ label: "Guide", autogenerate: { directory: "guide" } }],
 } as const;
 
 describe("createDocsConfig", () => {
-  it("returns an Astro config with default siteUrl", () => {
+  it("uses the supplied siteUrl", () => {
     const config = createDocsConfig(minimalOptions);
-    expect(config.site).toBe("https://ozzylabs.com");
-  });
-
-  it("uses custom siteUrl when provided", () => {
-    const config = createDocsConfig({
-      ...minimalOptions,
-      siteUrl: "https://road.ozzylabs.com",
-    });
-    expect(config.site).toBe("https://road.ozzylabs.com");
+    expect(config.site).toBe("https://docs.example.com");
   });
 
   it("sets base path", () => {
     const config = createDocsConfig(minimalOptions);
-    expect(config.base).toBe("/road/");
+    expect(config.base).toBe("/myproduct/");
   });
 
   it("does not add rehype plugins when mermaid is disabled", () => {
