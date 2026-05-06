@@ -2,7 +2,6 @@
 
 ## [0.2.0](https://github.com/ozzy-labs/starlight-theme/compare/starlight-theme-v0.1.1...starlight-theme-v0.2.0) (2026-05-06)
 
-
 ### ⚠ BREAKING CHANGES
 
 * genericize theme by removing hardcoded OzzyLabs branding ([#54](https://github.com/ozzy-labs/starlight-theme/issues/54))
@@ -11,8 +10,35 @@
 
 * genericize theme by removing hardcoded OzzyLabs branding ([#54](https://github.com/ozzy-labs/starlight-theme/issues/54)) ([adb0b0a](https://github.com/ozzy-labs/starlight-theme/commit/adb0b0af5e25da95d4e07ef65d56ea47ce57af50))
 
-## [0.1.1](https://github.com/ozzy-labs/starlight-theme/compare/starlight-theme-v0.1.0...starlight-theme-v0.1.1) (2026-04-26)
+### Migration from 0.1.x
 
+The theme was made generic so it can be reused across products. Update your `astro.config.mjs`:
+
+| Before (0.1.x) | After (0.2.0) |
+|---|---|
+| `product: "MyProduct"` | `title: "MyProduct"` (full title; `— OzzyLabs` suffix is no longer auto-appended) |
+| `siteUrl?` (defaulted to `https://ozzylabs.com`) | `siteUrl` is **required** |
+| GitHub social link auto-added (`github.com/ozzy-labs`) | Pass `githubUrl: "https://github.com/..."` to enable |
+| Custom Footer override (OzzyLabs nav) | Removed; provide your own via `components.Footer` if needed |
+| i18n forced to English (root) + Japanese | Defaults unchanged; pass new `locales` / `defaultLocale` to override |
+
+Example diff:
+
+```diff
+ export default createDocsConfig({
+-  product: "MyProduct",
+-  base: "/myproduct/",
++  title: "MyProduct",
++  base: "/myproduct/",
++  siteUrl: "https://docs.example.com",
++  githubUrl: "https://github.com/example/myproduct",
+   sidebar: [...],
+ });
+```
+
+The npm scope (`@ozzylabs/`), package name, exported function name (`ozzylabsStarlightTheme`), and repository URL are unchanged — they identify the publisher, not the theme's branding.
+
+## [0.1.1](https://github.com/ozzy-labs/starlight-theme/compare/starlight-theme-v0.1.0...starlight-theme-v0.1.1) (2026-04-26)
 
 ### Bug Fixes
 
