@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0](https://github.com/ozzy-labs/starlight-theme/compare/starlight-theme-v0.1.1...starlight-theme-v0.2.0) (2026-05-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* genericize theme by removing hardcoded OzzyLabs branding ([#54](https://github.com/ozzy-labs/starlight-theme/issues/54))
+
+### Features
+
+* genericize theme by removing hardcoded OzzyLabs branding ([#54](https://github.com/ozzy-labs/starlight-theme/issues/54)) ([adb0b0a](https://github.com/ozzy-labs/starlight-theme/commit/adb0b0af5e25da95d4e07ef65d56ea47ce57af50))
+
 ## [0.1.1](https://github.com/ozzy-labs/starlight-theme/compare/starlight-theme-v0.1.0...starlight-theme-v0.1.1) (2026-04-26)
 
 
