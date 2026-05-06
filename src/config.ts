@@ -6,14 +6,20 @@ import rehypeMermaid from "rehype-mermaid";
 import { ozzylabsStarlightTheme } from "./plugin.js";
 
 export interface DocsConfigOptions {
-  /** Product name displayed in the site title (e.g., "ROAD") */
-  product: string;
-  /** Base path for the site (e.g., "/road/") */
+  /** Site title passed directly to Starlight (e.g., "MyProduct" or "MyProduct — MyOrg") */
+  title: string;
+  /** Base path for the site (e.g., "/myproduct/") */
   base: string;
-  /** Site URL for canonical links and sitemaps (default: "https://ozzylabs.com") */
-  siteUrl?: string;
+  /** Site URL for canonical links and sitemaps (e.g., "https://docs.example.com") */
+  siteUrl: string;
   /** Starlight sidebar configuration */
   sidebar: StarlightUserConfig["sidebar"];
+  /** GitHub URL added as a social link (icon: github). Omit to skip. */
+  githubUrl?: string;
+  /** Locale configuration. Defaults to English (root) + Japanese. */
+  locales?: StarlightUserConfig["locales"];
+  /** Default locale key. Defaults to "root". */
+  defaultLocale?: string;
   /** Enable Mermaid diagram rendering at build time (requires playwright) */
   mermaid?: boolean;
   /** Additional Starlight plugins */
@@ -32,9 +38,9 @@ export interface DocsConfigOptions {
  * import { createDocsConfig } from "@ozzylabs/starlight-theme";
  *
  * export default createDocsConfig({
- *   product: "ROAD",
- *   base: "/road/",
- *   siteUrl: "https://road.ozzylabs.com",
+ *   title: "MyProduct",
+ *   base: "/myproduct/",
+ *   siteUrl: "https://docs.example.com",
  *   mermaid: true,
  *   sidebar: [{ label: "Guide", autogenerate: { directory: "guide" } }],
  * });
@@ -42,10 +48,13 @@ export interface DocsConfigOptions {
  */
 export function createDocsConfig(options: DocsConfigOptions): AstroUserConfig {
   const {
-    product,
+    title,
     base,
-    siteUrl = "https://ozzylabs.com",
+    siteUrl,
     sidebar,
+    githubUrl,
+    locales,
+    defaultLocale,
     mermaid = false,
     plugins = [],
     components,
@@ -58,11 +67,11 @@ export function createDocsConfig(options: DocsConfigOptions): AstroUserConfig {
     markdown: mermaid ? { rehypePlugins: [rehypeMermaid] } : {},
     integrations: [
       starlight({
-        title: `${product} — OzzyLabs`,
+        title,
         sidebar,
         components,
         customCss,
-        plugins: [ozzylabsStarlightTheme(), ...plugins],
+        plugins: [ozzylabsStarlightTheme({ githubUrl, locales, defaultLocale }), ...plugins],
       }),
     ],
   });
