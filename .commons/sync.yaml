@@ -15,4 +15,3 @@ skills_adapters:
 pinned:
   - CLAUDE.md
   - .gitignore
-  - .github/workflows/sync-commons.yaml
