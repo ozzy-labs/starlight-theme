@@ -42,7 +42,7 @@ export interface DocsConfigOptions {
  *   base: "/myproduct/",
  *   siteUrl: "https://docs.example.com",
  *   mermaid: true,
- *   sidebar: [{ label: "Guide", autogenerate: { directory: "guide" } }],
+ *   sidebar: [{ label: "Guide", items: [{ autogenerate: { directory: "guide" } }] }],
  * });
  * ```
  */
@@ -61,10 +61,17 @@ export function createDocsConfig(options: DocsConfigOptions): AstroUserConfig {
     customCss = [],
   } = options;
 
+  // Built as a single object rather than a `mermaid ? {...} : {}` ternary: the
+  // union of the two branches is not assignable to Astro's markdown config type.
+  const markdown: NonNullable<AstroUserConfig["markdown"]> = {};
+  if (mermaid) {
+    markdown.rehypePlugins = [rehypeMermaid];
+  }
+
   return defineConfig({
     site: siteUrl,
     base,
-    markdown: mermaid ? { rehypePlugins: [rehypeMermaid] } : {},
+    markdown,
     integrations: [
       starlight({
         title,

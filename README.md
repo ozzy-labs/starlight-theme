@@ -30,7 +30,7 @@ export default createDocsConfig({
   mermaid: true,
   customCss: ["./src/styles/custom.css"],
   sidebar: [
-    { label: "Guide", autogenerate: { directory: "guide" } },
+    { label: "Guide", items: [{ autogenerate: { directory: "guide" } }] },
   ],
 });
 ```

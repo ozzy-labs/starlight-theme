@@ -8,7 +8,7 @@ const minimalOptions = {
   title: "MyProduct",
   base: "/myproduct/",
   siteUrl: "https://docs.example.com",
-  sidebar: [{ label: "Guide", autogenerate: { directory: "guide" } }],
+  sidebar: [{ label: "Guide", items: [{ autogenerate: { directory: "guide" } }] }],
 } as const;
 
 describe("createDocsConfig", () => {
