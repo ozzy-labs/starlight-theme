@@ -1,7 +1,11 @@
 [tools]
 # Runtime & package managers
 node = "24"
-"npm:pnpm" = "10" # aqua backend fails: registry expects v11 .tar.gz format (see ozzy-labs/commons#100)
+# aqua backend fails: registry expects v11 .tar.gz format (see ozzy-labs/commons#100).
+# Pinned to 10.33.0: pnpm dropped npm provenance attestations from 10.34.0 onward,
+# so mise's no-downgrade trust policy refuses to install the 10.34.x releases that
+# a bare "10" resolves to. Matches package.json's packageManager field.
+"npm:pnpm" = "10.33.0"
 uv = "0.11.10"
 
 # Linters & formatters
