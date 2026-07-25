@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://github.com/ozzy-labs/starlight-theme/compare/starlight-theme-v0.2.0...starlight-theme-v0.3.0) (2026-07-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* peerDependencies now require astro ^7.1.0 and @astrojs/starlight ^0.41.0. Astro 6 / starlight 0.38 are no longer supported; consumers must bump astro, @astrojs/starlight and @ozzylabs/starlight-theme together.
+
+### Features
+
+* require astro 7 and starlight 0.41 ([#81](https://github.com/ozzy-labs/starlight-theme/issues/81)) ([f5ca21e](https://github.com/ozzy-labs/starlight-theme/commit/f5ca21e9aa8cfc8fd3b8438bca321f23cc63251a))
+
 ## [0.2.0](https://github.com/ozzy-labs/starlight-theme/compare/starlight-theme-v0.1.1...starlight-theme-v0.2.0) (2026-05-06)
 
 ### ⚠ BREAKING CHANGES
