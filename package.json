@@ -56,7 +56,7 @@
     "astro": "^7.1.3",
     "tsup": "^8.0.0",
     "typescript": "^6.0.3",
-    "vitest": "4.1.5"
+    "vitest": "4.1.11"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
